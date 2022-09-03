@@ -81,3 +81,27 @@ jobs:
             aws_region: us-west-1
             function_name: m-s-vocabularies-vocabulary-d
             zip_file: m-s-vocabularies-vocabulary-d.zip          
+      - name: /vocabularies/search get lambda deploy zip
+        uses: postman-open-technologies/vocabularies@main
+        with:
+            args: zip -qq -r m-s-vocabulariessearch-g.zip vocabularies/search/get/index.js node_modules
+      - name: vocabularies get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-vocabulariessearch-g
+            zip_file: m-s-vocabulariessearch-g.zip
+      - name: /vocabularies/search post lambda deploy zip
+        uses: postman-open-technologies/vocabularies@main
+        with:
+            args: zip -qq -r m-s-vocabulariessearch-po.zip vocabularies/search/post/index.js node_modules
+      - name: vocabularies get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-vocabulariessearch-po
+            zip_file: m-s-vocabulariessearch-po.zip            
