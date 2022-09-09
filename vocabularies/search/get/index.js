@@ -13,27 +13,27 @@ exports.handler = vandium.generic()
     
     var channel = '';
     if(event.channel){
-      search = event.channel;
+      channel = event.channel;
     }    
     
     var format = '';
     if(event.format){
-      tags = event.format;
+      format = event.format;
     }   
 
     const current_year = new Date().getFullYear();
     const current_month = new Date().getMonth() + 1;
     
-    var sql = "SELECT * FROM vocabularies v";
-    sql +'  WHERE name IS NOT IN(SELECT vocabulary FROM vocabularies_search";
-    sql += " AND MONTH(v.search_month) = " + current_month + " AND YEAR(v.search_year) = " + current_year + "";
-    sql += " AND v.channel = '" + channel + "'";
-    sql += " AND v.format = '" + format + "'";
+    var sql = "SELECT v.name,v.description,v.priority,v.domain,(select MAX(save_page) FROM vocabularies_search where vocabulary = v.name) as Save_Page FROM vocabularies v";
+    sql += "  WHERE name NOT IN(SELECT vocabulary FROM vocabularies_search";
+    sql += " WHERE MONTH(search_month) = " + current_month + " AND YEAR(search_year) = " + current_year + "";
+    sql += " AND channel = '" + channel + "'";
+    sql += " AND format = '" + format + "')";
     sql += " ORDER BY Rand()";
     sql += " LIMIT 0,1";
     connection.query(sql, function (error, results, fields) {
 
-    callback( null, results );
+    callback( null, results[0] );
 
   });
 });
