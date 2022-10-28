@@ -117,3 +117,39 @@ jobs:
             aws_region: us-west-1
             function_name: m-s-vocabulariescontent-po
             zip_file: m-s-vocabulariescontent-po.zip                       
+      - name: /vocabularies/{vocabulary_id}/tags get lambda deploy zip
+        uses: postman-open-technologies/vocabularies@main
+        with:
+            args: zip -qq -r m-s-vocabularies-vocabulary-tags-g.zip vocabularies/vocabulary_id/tags/get/index.js node_modules
+      - name: vocabularies get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-vocabularies-vocabulary-tags-g
+            zip_file: m-s-vocabularies-vocabulary-tags-g.zip
+      - name: /vocabularies/{vocabulary_id}/tags post lambda deploy zip
+        uses: postman-open-technologies/vocabularies@main
+        with:
+            args: zip -qq -r m-s-vocabularies-vocabulary-tags-po.zip vocabularies/vocabulary_id/tags/post/index.js node_modules
+      - name: vocabularies get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-vocabularies-vocabulary-tags-po
+            zip_file: m-s-vocabularies-vocabulary-tags-po.zip
+      - name: /vocabularies/{vocabulary_id}/tags/{tag_id} delete lambda deploy zip
+        uses: postman-open-technologies/vocabularies@main
+        with:
+            args: zip -qq -r m-s-vocabularies-vocabulary-tags-tag-d.zip vocabularies/vocabulary_id/tags/tag_id/delete/index.js node_modules
+      - name: vocabularies get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-vocabularies-vocabulary-tags-tag-d
+            zip_file: m-s-vocabularies-vocabulary-tags-tag-d.zip            

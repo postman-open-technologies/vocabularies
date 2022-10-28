@@ -14,41 +14,28 @@ exports.handler = vandium.generic()
     const current_year = new Date().getFullYear();
     const current_month = new Date().getMonth() + 1;    
 
-    var sql = 'INSERT INTO vocabularies_search(search_month,search_year,';
-    
-    var total_properties = Object.keys(event).length;
-    
-    var property_count = 1;
-    for (const [key, value] of Object.entries(event)) {
-      sql += key;
-      if(property_count != total_properties){
-        sql += ',';
-      }
-      property_count++;
-    }
-      
-    sql += ')';
+    var content = event.content.toLowerCase();;
 
-    sql += ' VALUES(' + current_year + ',' + current_month + ',';
-    
-    var property_count = 1;
-    for (const [key, value] of Object.entries(event)) {
-      sql += connection.escape(value);
-      if(property_count != total_properties){
-        sql += ',';
-      }
-      property_count++;
-    }
-
-    sql += ")";
-  
+    var sql = "SELECT * FROM vocabularies ORDER BY name";
     connection.query(sql, function (error, results, fields) {
-  
-      var response = {};
-      response['id'] = results.insertId;
-      response['name'] = event.vocabulary;
 
-      callback( null, response );
+    var tag_matches = [];
+    
+    for (let i = 0; i < results.length; i++) {
+      
+      if(content.includes(results[i].name.toLowerCase())){
+        
+        var t = {};
+        t.id = results[i].id
+        t.name = results[i].name
+        tag_matches.push(t);
+        
+      }
+      
+    }
 
-    });
+    callback( null, tag_matches );
+
+  });
+  connection.end();
 });
