@@ -43,11 +43,8 @@ exports.handler = vandium.generic()
     if(search != ''){
        sql += " AND b.name LIKE '%" + search + "%'";
     }
-    if(role != ''){
-       sql += " AND id IN(SELECT video_id FROM vocabularies_roles WHERE role_id IN(SELECT id FROM roles WHERE name = '" + role + "'))";
-    }   
     if(tags != ''){
-       sql += " AND id IN(SELECT video_id FROM vocabularies_tags WHERE tag_id IN(SELECT id FROM tags WHERE name IN ('" + tags.replace(",","','") + "')))";
+       sql += " AND id IN(SELECT vocabulary_id FROM vocabularies_tags WHERE tag_id IN(SELECT id FROM tags WHERE name IN ('" + tags.replace(",","','") + "')))";
     }     
     sql += " ORDER BY name";
     sql += " LIMIT " + event.page + "," + event.limit;

@@ -24,7 +24,7 @@ exports.handler = vandium.generic()
       property_count++;
     }
 
-    sql += " WHERE id = " + connection.escape(event.video_id);
+    sql += " WHERE id = " + connection.escape(event.vocabulary_id);
   
     connection.query(sql, function (error, results, fields) {
 

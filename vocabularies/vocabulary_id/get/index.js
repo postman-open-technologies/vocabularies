@@ -11,7 +11,7 @@ exports.handler = vandium.generic()
     database : process.env.database
     });
 
-    var sql = 'SELECT * FROM vocabularies WHERE id = ' + connection.escape(event.video_id);
+    var sql = 'SELECT * FROM vocabularies WHERE id = ' + connection.escape(event.vocabulary_id);
     connection.query(sql, function (error, results, fields) {
 
     callback( null, results[0] );
