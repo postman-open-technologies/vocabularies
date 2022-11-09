@@ -14,6 +14,6 @@ exports.handler = vandium.generic()
     var sql = 'SELECT * FROM tags t INNER JOIN vocabularies_tags bt ON t.id = bt.tag_id WHERE bt.vocabulary_id = ' + event.vocabulary_id + ' ORDER BY t.Name';
     connection.query(sql, function (error, results, fields) {
     callback( null, results );
+    connection.end();
   });
-  connection.end();
 });

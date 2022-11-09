@@ -51,6 +51,7 @@ exports.handler = vandium.generic()
     connection.query(sql, function (error, results, fields) {
 
     callback( null, results );
+    connection.end();
 
   });
 });

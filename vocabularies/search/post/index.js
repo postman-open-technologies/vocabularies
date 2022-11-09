@@ -49,6 +49,7 @@ exports.handler = vandium.generic()
       response['name'] = event.vocabulary;
 
       callback( null, response );
+      connection.end();
 
     });
 });
