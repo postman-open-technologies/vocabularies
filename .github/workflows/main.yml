@@ -127,7 +127,7 @@ jobs:
             aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
-            function_name: m-s-vocabularie-scontent-links-po
+            function_name: m-s-vocabularies-content-links-po
             zip_file: m-s-vocabularies-content-links-po.zip                                
       - name: /vocabularies/{vocabulary_id}/tags get lambda deploy zip
         uses: postman-open-technologies/vocabularies@main
