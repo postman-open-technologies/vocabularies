@@ -108,15 +108,27 @@ jobs:
       - name: /vocabularies/content post lambda deploy zip
         uses: postman-open-technologies/vocabularies@main
         with:
-            args: zip -qq -r m-s-vocabulariescontent-po.zip vocabularies/content/post/index.js node_modules
+            args: zip -qq -r m-s-vocabularies-content-po.zip vocabularies/content/post/index.js node_modules
       - name: vocabularies get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
-            function_name: m-s-vocabulariescontent-po
-            zip_file: m-s-vocabulariescontent-po.zip                       
+            function_name: m-s-vocabularies-content-po
+            zip_file: m-s-vocabularies-content-po.zip    
+      - name: /vocabularies/content/links post lambda deploy zip
+        uses: postman-open-technologies/vocabularies@main
+        with:
+            args: zip -qq -r m-s-vocabularies-content-links-po.zip vocabularies/content/links/post/index.js node_modules
+      - name: vocabularies get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-vocabularie-scontent-links-po
+            zip_file: m-s-vocabularies-content-links-po.zip                                
       - name: /vocabularies/{vocabulary_id}/tags get lambda deploy zip
         uses: postman-open-technologies/vocabularies@main
         with:

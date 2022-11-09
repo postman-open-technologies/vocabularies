@@ -21,9 +21,9 @@ exports.handler = vandium.generic()
       tags = event.tags;
     }   
     
-    var role = 0;
-    if(event.role){
-      role = event.role;
+    var priority = 1;
+    if(event.priority){
+      priority = event.priority;
     }       
     
     var page = 0;
@@ -43,6 +43,11 @@ exports.handler = vandium.generic()
     if(search != ''){
        sql += " AND b.name LIKE '%" + search + "%'";
     }
+
+    if(priority != ''){
+       sql += " AND b.priority = " + priority + "";
+    }    
+    
     if(tags != ''){
        sql += " AND id IN(SELECT vocabulary_id FROM vocabularies_tags WHERE tag_id IN(SELECT id FROM tags WHERE name IN ('" + tags.replace(",","','") + "')))";
     }     
@@ -51,7 +56,6 @@ exports.handler = vandium.generic()
     connection.query(sql, function (error, results, fields) {
 
     callback( null, results );
-    connection.end();
 
   });
 });
